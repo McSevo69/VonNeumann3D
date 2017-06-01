@@ -1,0 +1,41 @@
+Sat 10:40: ########################################## 
+Sat 10:40: Compiling.
+Sat 10:40: ########################################## 
+
+Sat 10:40: MaxCompiler version: 2015.1.1 (simulation only).
+Sat 10:40: Build DFE run rule for Copy_Of_MovingAverage start time: Sat May 23 10:40:13 PDT 2015.
+Sat 10:40: Project location: /home/demo/workspace/Copy_Of_MovingAverage.
+Sat 10:40: Detailed build log: /home/demo/workspace/Copy_Of_MovingAverage/RunRules/DFE/build.log.
+
+Sat 10:40: Compiling Engine Code.
+Sat 10:40: Building CpuStream.max file. 
+Sat 10:40: Setting environment variable:
+Sat 10:40: MAXCOMPILER_BUILD_DIR : /home/demo/workspace/Copy_Of_MovingAverage/RunRules/DFE/maxfiles
+Sat 10:40: MAX_BUILDPARAMS : DFEModel='VECTIS' target='DFE' maxFileName='CpuStream'  
+Sat 10:40: Building output:
+Sat 10:40: MaxCompiler version: 2015.1.1 (simulation only)
+Sat 10:40: Build "CpuStream" start time: Sat May 23 10:40:19 PDT 2015
+Sat 10:40: Main build process running as user demo on host localhost.localdomain
+Sat 10:40: Build location: /home/demo/Desktop/MaxCompiler-Builds/CpuStream_VECTIS_DFE
+Sat 10:40: Detailed build log available in "_build.log"
+Sat 10:40: ERROR: ----------------------------
+Sat 10:40: ERROR: Exception in thread "main":
+Sat 10:40: ERROR:  
+Sat 10:40: ERROR:   This version of MaxCompiler can only be used to target simulation. Please use a 
+Sat 10:40: ERROR:   different type of Manager or instantiate this Manager such that it targets 
+Sat 10:40: ERROR:   simulation. The latter is usually achieved by using an alternate constructor 
+Sat 10:40: ERROR:   with a boolean is_simuation (or similar) parameter set to true.
+Sat 10:40: ERROR: 
+Sat 10:40: ERROR: Exception Stack Trace com.maxeler.maxcompiler.v2.errors.MaxCompilerAPIError: 
+Sat 10:40: ERROR:    at com.maxeler.maxcompiler.v2.managers.DFEManager.checkSimulationBuildOnly(DFEManager.java:156)
+Sat 10:40: ERROR:    at com.maxeler.maxcompiler.v2.managers.DFEManager.<init>(DFEManager.java:134)
+Sat 10:40: ERROR:    at com.maxeler.maxcompiler.v2.managers.DFEManager.<init>(DFEManager.java:106)
+Sat 10:40: ERROR:    at com.maxeler.maxcompiler.v2.managers.standard.Manager.<init>(Manager.java:222)
+Sat 10:40: ERROR:    at cpustream.CpuStreamManager.main(CpuStreamManager.maxj:13)
+Sat 10:40: ERROR: ----------------------------
+Sat 10:40: Building: CpuStream.max file finished.
+Sat 10:40: Build process failed while trying to create CpuStream.max file
+Sat 10:40: null
+Sat 10:40: Build failed: Sat May 23 10:40:19 PDT 2015
+
+

@@ -1,0 +1,40 @@
+Sat 10:40: PROGRESS: MaxCompiler version: 2015.1.1 (simulation only)
+Sat 10:40: PROGRESS: Build "CpuStream" start time: Sat May 23 10:40:19 PDT 2015
+Sat 10:40: PROGRESS: Main build process running as user demo on host localhost.localdomain
+Sat 10:40: INFO    : Loading build properties from bundled MaxCompiler_build.conf...
+Sat 10:40: INFO    : No default external build property file has been specified.
+Sat 10:40: INFO    : (Set environment variable MAXCOMPILER_DEFAULT_CONF_FILE to assign one)
+Sat 10:40: INFO    : Loading user build properties from: /home/demo/.MaxCompiler_build_user.conf
+Sat 10:40: INFO    : No user-specified external build property file has been specified.
+Sat 10:40: INFO    : (Set environment variable MAXCOMPILER_BUILD_CONF_FILE to assign one)
+Sat 10:40: INFO    : Loading additional parameters from MAXCOMPILER_BUILD_CONF environment variable
+Sat 10:40: PROGRESS: Build location: /home/demo/Desktop/MaxCompiler-Builds/CpuStream_VECTIS_DFE
+Sat 10:40: PROGRESS: Detailed build log available in "_build.log"
+Sat 10:40: INFO    : Created build manager CpuStream (CpuStream_VECTIS_DFE Sat May 23 10:40:19 PDT 2015). (10:40:19 23/05/15)
+Sat 10:40: INFO    : Working in dir: /home/demo/Desktop/MaxCompiler-Builds/CpuStream_VECTIS_DFE
+Sat 10:40: INFO    : Java class path (2 paths):
+Sat 10:40: INFO    : 	/home/demo/workspace/Copy_Of_MovingAverage/EngineCode/bin
+Sat 10:40: INFO    : 	/opt/maxeler/maxcompiler/lib/MaxCompiler.jar
+Sat 10:40: INFO    : Java process started by 'main' method in class 'cpustream.CpuStreamManager'.
+Sat 10:40: INFO    : build.arbitrated_core_cache parameter is blank, not using core-cache
+Sat 10:40: INFO    : Checking license files in directory: /opt/maxeler/maxcompiler/licenses
+Sat 10:40: INFO    : All license signatures valid.
+Sat 10:40: INFO    : Backing-up source-files (old source files in build directory will be removed first)...
+Sat 10:40: INFO    : Source directories: /home/demo/workspace/Copy_Of_MovingAverage/EngineCode/src:
+Sat 10:40: INFO    : Not deleting directory (does not exist): src
+Sat 10:40: INFO    : Copying source-files took 7.59132 ms
+Sat 10:40: ERROR   : ----------------------------
+Sat 10:40: ERROR   : Exception in thread "main":
+Sat 10:40: ERROR   :  
+Sat 10:40: ERROR   :   This version of MaxCompiler can only be used to target simulation. Please use a 
+Sat 10:40: ERROR   :   different type of Manager or instantiate this Manager such that it targets 
+Sat 10:40: ERROR   :   simulation. The latter is usually achieved by using an alternate constructor 
+Sat 10:40: ERROR   :   with a boolean is_simuation (or similar) parameter set to true.
+Sat 10:40: ERROR   : 
+Sat 10:40: ERROR   : Exception Stack Trace com.maxeler.maxcompiler.v2.errors.MaxCompilerAPIError: 
+Sat 10:40: ERROR   :    at com.maxeler.maxcompiler.v2.managers.DFEManager.checkSimulationBuildOnly(DFEManager.java:156)
+Sat 10:40: ERROR   :    at com.maxeler.maxcompiler.v2.managers.DFEManager.<init>(DFEManager.java:134)
+Sat 10:40: ERROR   :    at com.maxeler.maxcompiler.v2.managers.DFEManager.<init>(DFEManager.java:106)
+Sat 10:40: ERROR   :    at com.maxeler.maxcompiler.v2.managers.standard.Manager.<init>(Manager.java:222)
+Sat 10:40: ERROR   :    at cpustream.CpuStreamManager.main(CpuStreamManager.maxj:13)
+Sat 10:40: ERROR   : ----------------------------

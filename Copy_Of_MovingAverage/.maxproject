@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="Copy_Of_MovingAverage_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/Copy_Of_MovingAverage_EngineCode/bin" projectName="Copy_Of_MovingAverage"/>
+<cpuPart internalCpuSubproject="Copy_Of_MovingAverage_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

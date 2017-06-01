@@ -1,0 +1,34 @@
+package testing;
+
+import com.maxeler.maxcompiler.v2.managers.standard.SimulationManager;
+
+import cpustream.CpuStreamKernel;
+
+public class MovingAverageSimRunner {
+	public static void main(String[] args){
+		SimulationManager simMan = new SimulationManager("movingAverageSim");
+
+		CpuStreamKernel movingAverageKernel = new CpuStreamKernel(simMan.makeKernelParameters());
+
+		simMan.setKernel(movingAverageKernel);
+
+		simMan.setInputData("x", 1, 3, 5, 13, 0, 2, 4, 6);
+
+		simMan.setScalarInput("N", 8);
+
+		simMan.setKernelCycles(8);
+
+		simMan.setKernelCycles(8);
+
+		simMan.runTest();
+
+		simMan.dumpOutput();
+
+		double expectedOutput[] = {2, 3, 7, 6, 5, 2, 4, 5};
+
+		simMan.checkOutputData("z", expectedOutput);
+
+		simMan.logMsg("Test passed OK!");
+
+	}
+}
