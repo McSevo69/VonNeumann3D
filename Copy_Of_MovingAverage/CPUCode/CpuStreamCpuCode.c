@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "Maxfiles.h"
 #include "MaxSLiCInterface.h"
@@ -14,9 +15,14 @@ float dataOut[IT][SIZE];
 
 int main(void) {
 
+	srand(time(NULL));
+
 	for (int i = 0; i < SIZE; i++) {
-		dataIn[i] = i;
+		dataIn[i] = rand() / double(RAND_MAX);
 	}
+
+	int randomIndex = rand() % 262144;
+	dataIn[randomIndex] = 10000.5;
 
 	printf("Running on DFE.\n");
 	CpuStream(SIZE, N, dataIn, &dataOut[0][0]);
