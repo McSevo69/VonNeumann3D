@@ -27,6 +27,9 @@ int main(void) {
 	printf("Running on DFE.\n");
 	CpuStream(SIZE, N, dataIn, &dataOut[0][0]);
 
+	FILE* results;
+	results = fopen("results.csv","a");
+
 	for (int i = 1; i < IT; i++) {
 		CpuStream(SIZE, N, &dataOut[i-1][0], &dataOut[i][0]);
 	}
@@ -34,10 +37,16 @@ int main(void) {
 	// TODO Use result data
 	for (int j = 1; j < IT; j++) {
 		printf("Iteration %d\n" , j);
+
 		for(int i = 0; i < SIZE; ++i){
-			printf("dataOut[%d] = %f\n", i, dataOut[j][i]);
+			fprintf(results, "%f,", dataOut[j][i]);
 		}
+
+		fprintf(results, "\n");
+
 	}
+
+	fclose (results);
 
 	printf("Done.\n");
 	return 0;
