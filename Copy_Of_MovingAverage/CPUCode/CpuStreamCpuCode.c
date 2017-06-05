@@ -18,11 +18,11 @@ int main(void) {
 	srand(time(NULL));
 
 	for (int i = 0; i < SIZE; i++) {
-		dataIn[i] = rand() / double(RAND_MAX);
+		dataIn[i] = rand() / (float) RAND_MAX;
 	}
 
 	int randomIndex = rand() % 262144;
-	dataIn[randomIndex] = 10000.5;
+	dataIn[randomIndex] = 100000.5;
 
 	printf("Running on DFE.\n");
 	CpuStream(SIZE, N, dataIn, &dataOut[0][0]);
@@ -42,3 +42,4 @@ int main(void) {
 	printf("Done.\n");
 	return 0;
 }
+
