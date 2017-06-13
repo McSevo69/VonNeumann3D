@@ -26,6 +26,35 @@ int main(void) {
 
 	clock_t start = clock();
 
+	//very first iteration
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			for (int k = 0; k < N; k++) {
+
+				//left boundary
+				neighbors = (k==0) ? boundaryValue : dataIn[i*N*N+j*N+k-1];
+
+				//right boundary
+				neighbors += (k==N) ? boundaryValue : dataIn[i*N*N+j*N+k+1];
+			
+				//upper boundary
+				neighbors += (j==0) ? boundaryValue : dataIn[i*N*N+j*N+k-N];
+
+				//lower boundary
+				neighbors += (j==N) ? boundaryValue : dataIn[i*N*N+j*N+k+N];
+					
+				//above boundary
+				neighbors += (i==0) ? boundaryValue : dataIn[i*N*N+j*N+k-N*N];
+			
+				//below boundary
+				neighbors += (i==N) ? boundaryValue : dataIn[i*N*N+j*N+k+N*N];
+		
+				dataOut[0][i*N*N+j*N+k] = neighbors/6;
+
+			}
+		}
+	}
+
 	for (int it_cnt = 1; it_cnt < IT; it_cnt++) {
 		printf("Iteration %d\n" , it_cnt);
 
@@ -33,50 +62,25 @@ int main(void) {
 			for (int j = 0; j < N; j++) {
 				for (int k = 0; k < N; k++) {
 
-					//left boundary
-					if (k==0) {
-						neighbors = boundaryValue;
-					} else {
-						neighbors = dataOut[it_cnt-1][i*N*N+j*N+k-1];
-					}
+						//left boundary
+						neighbors = (k==0) ? boundaryValue : dataIn[i*N*N+j*N+k-1];
 
-					//right boundary
-					if (k==N) {
-						neighbors += boundaryValue;
-					} else {
-						neighbors += dataOut[it_cnt-1][i*N*N+j*N+k+1];
-					}
+						//right boundary
+						neighbors += (k==N) ? boundaryValue : dataIn[i*N*N+j*N+k+1];
+			
+						//upper boundary
+						neighbors += (j==0) ? boundaryValue : dataIn[i*N*N+j*N+k-N];
 
-
-					//upper boundary
-					if (j==0) {
-						neighbors += boundaryValue;
-					} else {
-						neighbors += dataOut[it_cnt-1][i*N*N+j*N+k-N];
-					}
-
-					//lower boundary
-					if (j==N) {
-						neighbors += boundaryValue;
-					} else {
-						neighbors += dataOut[it_cnt-1][i*N*N+j*N+k+N];
-					}
-
-					//above boundary
-					if (i==0) {
-						neighbors += boundaryValue;
-					} else {
-						neighbors += dataOut[it_cnt-1][i*N*N+j*N+k-N*N];
-					}
-
-					//below boundary
-					if (i==N) {
-						neighbors += boundaryValue;
-					} else {
-						neighbors += dataOut[it_cnt-1][i*N*N+j*N+k+N*N];
-					}
-
-					dataOut[it_cnt][i*N*N+j*N+k] = neighbors/6;
+						//lower boundary
+						neighbors += (j==N) ? boundaryValue : dataIn[i*N*N+j*N+k+N];
+					
+						//above boundary
+						neighbors += (i==0) ? boundaryValue : dataIn[i*N*N+j*N+k-N*N];
+			
+						//below boundary
+						neighbors += (i==N) ? boundaryValue : dataIn[i*N*N+j*N+k+N*N];
+		
+						dataOut[0][i*N*N+j*N+k] = neighbors/6;
 
 				}
 			}
