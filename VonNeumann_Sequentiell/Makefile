@@ -16,5 +16,5 @@ main : $(OBJECTS)
 clean:
 	for file in main *.o; do if [ -f $${file} ]; then rm $${file}; fi; done
 
-run:
+run: main
 	./main

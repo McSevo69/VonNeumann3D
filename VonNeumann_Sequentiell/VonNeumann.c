@@ -27,7 +27,7 @@ int main(void) {
 	clock_t start = clock();
 
 	for (int it_cnt = 1; it_cnt < IT; it_cnt++) {
-		printf("Iteration %d\n" , j);
+		printf("Iteration %d\n" , it_cnt);
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
@@ -85,6 +85,8 @@ int main(void) {
 
 	clock_t end = clock();
 	double timeSpent = (end-start)/(double)CLOCKS_PER_SEC;
+	printf("time: %.2f sec\n",timeSpent);
+	printf("results are stored.\n");
 
 	FILE* results;
 	results = fopen("results_seq_1000.csv","a");
@@ -101,8 +103,9 @@ int main(void) {
 	}
 
 	fclose (results);
+	printf("done.");
 
-	printf("Done. time: %.2f sec\n",timeSpent);
+	
 	return 0;
 }
 
