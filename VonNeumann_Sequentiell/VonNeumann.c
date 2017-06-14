@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 2097152
-#define N 128
-#define IT 1000
+#define SIZE 262144
+#define N 64
+#define IT 100
 
 int main(void) {
 
-	float * dataIn = calloc(N*N, sizeof(float));
-	float ** dataOut = calloc(IT*N*N, sizeof(float));
-	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N, sizeof(float));
+	float * dataIn = calloc(N*N*N, sizeof(float));
+	float ** dataOut = calloc(IT*N*N*N, sizeof(float));
+	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N*N, sizeof(float));
 
 	srand(time(NULL));	
 
@@ -108,6 +108,11 @@ int main(void) {
 	}
 
 	fclose (results);
+
+	free(dataIn);
+	for (int i=0; i<IT; i++) free(dataOut[i]);
+	free(dataOut);
+
 	printf("done.");
 
 	

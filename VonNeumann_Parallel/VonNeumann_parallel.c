@@ -4,15 +4,15 @@
 #include <time.h>
 #include <omp.h>
 
-#define SIZE 2097152
-#define N 128
+#define SIZE 262144
+#define N 64
 #define IT 1000
 
 int main(void) {
 
-	float * dataIn = calloc(N*N, sizeof(float));
-	float ** dataOut = calloc(IT*N*N, sizeof(float));
-	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N, sizeof(float));
+	float * dataIn = calloc(N*N*N, sizeof(float));
+	float ** dataOut = calloc(IT*N*N*N, sizeof(float));
+	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N*N, sizeof(float));
 
 	srand(time(NULL));
 	int i, j, k;
@@ -38,7 +38,7 @@ int main(void) {
 	//very first iteration
 	#pragma omp parallel private(i,j,k) shared(dataOut, dataIn)
 		{
-			#pragma omp for nowait
+			#pragma omp for nowait schedule(guided,(4))
 			for (i = 0; i < N; i++) {
 				for (j = 0; j < N; j++) {
 					for (k = 0; k < N; k++) {
@@ -74,7 +74,7 @@ int main(void) {
 	
 		#pragma omp parallel private(i,j,k) shared(dataOut)
 		{
-			#pragma omp for nowait
+			#pragma omp for nowait schedule(guided,(4))
 			for (i = 0; i < N; i++) {
 				for (j = 0; j < N; j++) {
 					for (k = 0; k < N; k++) {
@@ -102,7 +102,9 @@ int main(void) {
 					}
 				}
 			}
-		}		
+		#pragma omp barrier
+		}
+				
 	}
 
 	clock_t end = clock();
@@ -124,6 +126,11 @@ int main(void) {
 	}
 
 	fclose (results);
+	
+	free(dataIn);
+	for (int i=0; i<IT; i++) free(dataOut[i]);
+	free(dataOut);
+
 	printf("done.");
 
 	
