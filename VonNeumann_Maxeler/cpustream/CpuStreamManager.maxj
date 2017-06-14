@@ -1,0 +1,24 @@
+package cpustream;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
+
+public class CpuStreamManager {
+
+	private static final String s_kernelName = "CpuStreamKernel";
+
+	public static void main(String[] args) {
+		CpuStreamEngineParameters params = new CpuStreamEngineParameters(args);
+		Manager manager = new Manager(params);
+		Kernel kernel   = new CpuStreamKernel(manager.makeKernelParameters(s_kernelName));
+		manager.setKernel(kernel);
+		manager.setIO(IOType.ALL_CPU);
+
+		manager.createSLiCinterface();
+
+
+		manager.build();
+	}
+
+}

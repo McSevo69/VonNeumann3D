@@ -1,0 +1,48 @@
+package cpustream;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+public class CpuStreamKernel extends Kernel {
+
+	private static final DFEType type = dfeFloat(8, 24);
+
+	public CpuStreamKernel(KernelParameters parameters) {
+		super(parameters);
+
+		DFEVar x = io.input("x", type);
+		DFEVar N = io.scalarInput("N", dfeUInt(64));
+
+		CounterChain chain = control.count.makeCounterChain();
+		DFEVar i = chain.addCounter(N, 1);
+		DFEVar j = chain.addCounter(N, 1);
+		DFEVar z = chain.addCounter(N, 1);
+
+		DFEVar window[] = new DFEVar[6];
+
+		int n = 128;
+
+		//Standard Laborbedingungen - 20 °C
+		window[0] = (j>0) ? stream.offset(x, -1) : constant.var(type,20);
+		window[1] = (j<(n-1)) ? stream.offset(x, +1) : constant.var(type,20);
+		window[2] = (i>0) ? stream.offset(x, -n) : constant.var(type,20);
+		window[3] = (i<(n-1)) ? stream.offset(x, +n) : constant.var(type,20);
+		window[4] = (z>0) ? stream.offset(x, -n*n) : constant.var(type,20);
+		window[5] = (z<(n-1)) ? stream.offset(x, +n*n) : constant.var(type,20);
+
+		DFEVar result = window[0];
+		result += window[1];
+		result += window[2];
+		result += window[3];
+		result += window[4];
+		result += window[5];
+
+		result /= 6;
+
+		io.output("z", result, type);
+	}
+
+}
