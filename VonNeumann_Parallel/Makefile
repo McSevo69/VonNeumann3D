@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Werror -O3 -fopenmp -pedantic -std=iso9899:2011
+CFLAGS := -Wall -Werror -O3 -fopenmp -pedantic -std=c99
 
 
 OBJECTS := VonNeumann_parallel.c

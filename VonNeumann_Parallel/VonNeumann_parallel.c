@@ -8,10 +8,11 @@
 #define N 128
 #define IT 1000
 
-float dataIn[SIZE];
-float dataOut[IT][SIZE];
-
 int main(void) {
+
+	float * dataIn = calloc(N*N, sizeof(float));
+	float ** dataOut = calloc(IT*N*N, sizeof(float));
+	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N, sizeof(float));
 
 	srand(time(NULL));
 	int i, j, k;

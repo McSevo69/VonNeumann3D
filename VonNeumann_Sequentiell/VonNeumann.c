@@ -7,12 +7,13 @@
 #define N 128
 #define IT 1000
 
-float dataIn[SIZE];
-float dataOut[IT][SIZE];
-
 int main(void) {
 
-	srand(time(NULL));
+	float * dataIn = calloc(N*N, sizeof(float));
+	float ** dataOut = calloc(IT*N*N, sizeof(float));
+	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N, sizeof(float));
+
+	srand(time(NULL));	
 
 	//random initialization
 	for (int i = 0; i < SIZE; i++) {
@@ -96,7 +97,6 @@ int main(void) {
 	FILE* results;
 	results = fopen("results_seq_new.csv","a");
 
-	// TODO Use result data
 	for (int j = 1; j < IT; j++) {
 
 		for(int i = 0; i < SIZE; ++i){
