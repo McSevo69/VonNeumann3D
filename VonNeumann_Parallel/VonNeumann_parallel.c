@@ -4,8 +4,8 @@
 #include <time.h>
 #include <omp.h>
 
-#define SIZE 262144
-#define N 64
+#define SIZE 2097152
+#define N 128
 #define IT 1000
 
 float dataIn[SIZE];
@@ -16,6 +16,7 @@ int main(void) {
 	srand(time(NULL));
 	int i, j, k;
 
+	//random initialization
 	for (int z = 0; z < SIZE; z++) {
 		dataIn[z] = rand() / (float) RAND_MAX;
 	}
@@ -66,7 +67,7 @@ int main(void) {
 			}
 		}		
 
-	//iterations 1 - N (dataIn isn't needed anymore)
+	//iterations 1 to N (dataIn isn't needed anymore)
 	for (int it_cnt = 1; it_cnt < IT; it_cnt++) {
 		printf("Iteration %d\n" , it_cnt);
 	

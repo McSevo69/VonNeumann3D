@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 262144
-#define N 64
+#define SIZE 2097152
+#define N 128
 #define IT 1000
 
 float dataIn[SIZE];
@@ -14,6 +14,7 @@ int main(void) {
 
 	srand(time(NULL));
 
+	//random initialization
 	for (int i = 0; i < SIZE; i++) {
 		dataIn[i] = rand() / (float) RAND_MAX;
 	}
@@ -93,7 +94,7 @@ int main(void) {
 	printf("results are stored.\n");
 
 	FILE* results;
-	results = fopen("results_seq_1000.csv","a");
+	results = fopen("results_seq_new.csv","a");
 
 	// TODO Use result data
 	for (int j = 1; j < IT; j++) {
