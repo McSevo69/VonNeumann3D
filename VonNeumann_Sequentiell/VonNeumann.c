@@ -9,9 +9,9 @@
 
 int main(void) {
 
-	float * dataIn = calloc(N*N*N, sizeof(float));
-	float ** dataOut = (float **) malloc(sizeof(float[IT][N*N*N]));
-	for (int i=0; i<IT; i++) dataOut[i] = (float*) malloc(N*N*N*sizeof(float));
+	float * dataIn = malloc(N*N*N*sizeof(float));
+	float ** dataOut = malloc(IT*sizeof(float*));
+	for (int i=0; i<IT; i++) dataOut[i] = malloc(N*N*N*sizeof(float));
 
 	srand(time(NULL));	
 
