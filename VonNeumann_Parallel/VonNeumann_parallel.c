@@ -11,7 +11,7 @@
 int main(void) {
 
 	float * dataIn = calloc(N*N*N, sizeof(float));
-	float ** dataOut = calloc(IT*N*N*N, sizeof(float));
+	float ** dataOut = calloc(IT*N*N*N, sizeof(float*));
 	for (int i=0; i<IT; i++) dataOut[i] = calloc(N*N*N, sizeof(float));
 
 	srand(time(NULL));
@@ -38,7 +38,7 @@ int main(void) {
 	//very first iteration
 	#pragma omp parallel private(i,j,k) shared(dataOut, dataIn)
 		{
-			#pragma omp for nowait schedule(guided,(4))
+			#pragma omp for nowait
 			for (i = 0; i < N; i++) {
 				for (j = 0; j < N; j++) {
 					for (k = 0; k < N; k++) {
@@ -74,7 +74,7 @@ int main(void) {
 	
 		#pragma omp parallel private(i,j,k) shared(dataOut)
 		{
-			#pragma omp for nowait schedule(guided,(4))
+			#pragma omp for nowait
 			for (i = 0; i < N; i++) {
 				for (j = 0; j < N; j++) {
 					for (k = 0; k < N; k++) {
@@ -102,20 +102,19 @@ int main(void) {
 					}
 				}
 			}
-		#pragma omp barrier
 		}
 				
 	}
 
 	clock_t end = clock();
-	double timeSpent = (end-start)/(double)CLOCKS_PER_SEC/omp_get_num_procs();
+	double timeSpent = (end-start)/(double)CLOCKS_PER_SEC/omp_get_max_threads();
 	printf("time: %.2f sec\n",timeSpent);
 	printf("results are stored.\n");
 
 	FILE* results;
 	results = fopen("results_par_1000.csv","a");
 
-	for (int x = 1; x < IT; x++) {
+	for (int x = 0; x < IT; x++) {
 
 		for(int y = 0; y < SIZE; ++y){
 			fprintf(results, "%f,", dataOut[x][y]);

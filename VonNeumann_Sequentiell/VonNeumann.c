@@ -9,9 +9,9 @@
 
 int main(void) {
 
-	float * dataIn = malloc(N*N*N*sizeof(float));
-	float ** dataOut = malloc(IT*sizeof(float*));
-	for (int i=0; i<IT; i++) dataOut[i] = malloc(N*N*N*sizeof(float));
+	float * dataIn = calloc(SIZE, sizeof(float));
+	float ** dataOut = calloc(IT*SIZE, sizeof(float*));
+	for (int i=0; i<IT; i++) dataOut[i] = calloc(SIZE, sizeof(float));
 
 	srand(time(NULL));	
 
@@ -57,6 +57,8 @@ int main(void) {
 		}
 	}
 
+	free(dataIn);
+
 	for (int it_cnt = 1; it_cnt < IT; it_cnt++) {
 		printf("Iteration %d\n" , it_cnt);
 
@@ -97,7 +99,7 @@ int main(void) {
 	FILE* results;
 	results = fopen("results_seq_new.csv","a");
 
-	for (int j = 1; j < IT; j++) {
+	for (int j = 0; j < IT; j++) {
 
 		for(int i = 0; i < SIZE; ++i){
 			fprintf(results, "%f,", dataOut[j][i]);
@@ -109,7 +111,6 @@ int main(void) {
 
 	fclose (results);
 
-	free(dataIn);
 	for (int i=0; i<IT; i++) free(dataOut[i]);
 	free(dataOut);
 
