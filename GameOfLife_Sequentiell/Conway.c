@@ -5,10 +5,10 @@
 #include <unistd.h>
 #include <time.h>
 
-#define SHAPE_SIZE 8
-#define SIZE 4096
-#define N 64
-#define IT 250
+#define SHAPE_SIZE 4
+#define SIZE 16384
+#define N 128
+#define IT 400
 #define WINDOW_WIDTH 512
 
 //initialization
@@ -179,7 +179,12 @@ int main(int argc, char *argv[])
 	  }
 
       SDL_RenderPresent(Main_Renderer);
-      SDL_Delay(300);
+      int cnt = 0;
+      while(++cnt < 300) {
+          SDL_Event event;
+          SDL_PollEvent( &event );
+          SDL_Delay(1);
+      }
     
   }
 
