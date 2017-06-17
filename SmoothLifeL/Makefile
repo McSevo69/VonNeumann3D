@@ -1,8 +1,6 @@
-CC := icc
-CFLAGS := -Wall -Werror -O3 -openmp -pedantic -std=c99
-
-
-OBJECTS := VonNeumann_parallel.c
+CC := gcc
+CFLAGS := -Wall -Werror -O3 -pedantic -std=c99
+OBJECTS := SmoothLifeL.c
 
 
 .Phony:

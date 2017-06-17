@@ -40,29 +40,52 @@ void golAlgorithm(int *dataIn, int *dataOut) {
 		for (int k = 0; k < N; k++) {
 
 			//left boundary - left neighbor
-			neighbors = (k==0) ? 0 : dataIn[j*N+k-1];
+			neighbors = (k==0) ? dataIn[j*N+N-1] : dataIn[j*N+k-1];
 
 			//right boundary - right neighbor
-			neighbors += (k==N) ? 0 : dataIn[j*N+k+1];
+			neighbors += (k==N) ? dataIn[j*N-N+1] : dataIn[j*N+k+1];
 			
 			//upper boundary - top neighbor
-			neighbors += (j==0) ? 0 : dataIn[j*N+k-N];
+			neighbors += (j==0) ? dataIn[j*N+k+(N-1)*N] : dataIn[j*N+k-N];
 
 			//lower boundary - bottom neighbor
-			neighbors += (j==N) ? 0 : dataIn[j*N+k+N];
+			neighbors += (j==N) ? dataIn[j*N+k-(N-1)*N] : dataIn[j*N+k+N];
 
 			//top left neighbor
-			neighbors += (k==0 || j==0) ? 0 : dataIn[j*N+k-N-1];
+			if (k==0 && j!=0) {
+				neighbors += dataIn[j*N+k-1];
+			} else if (k!=0 && j==0) {
+				neighbors += dataIn[j*N+k+(N-1)*N-1];
+			} else if (k==0 && j==0) {
+				neighbors += dataIn[j*N+k+(N-1)*N+(N-1)];
+			} else neighbors += dataIn[j*N+k-N-1];
 
 			//top right neighbor
-			neighbors += (k==N || j==0) ? 0 : dataIn[j*N+k-N+1];
+			if (k==N && j!=0) {
+				neighbors += dataIn[j*N+k-N-N+1];
+			} else if (k!=N && j==0) {
+				neighbors += dataIn[j*N+k+(N-1)*N+1];
+			} else if (k==N && j==0) {
+				neighbors += dataIn[j*N+k+(N-1)*N-(N-1)];
+			} else neighbors += dataIn[j*N+k-N+1];
 
 			//bottom left neighbor
-			neighbors += (k==0 || j==N) ? 0 : dataIn[j*N+k+N-1];
+			if (k==0 && j!=N) {
+				neighbors += dataIn[j*N+k+N+N-1];
+			} else if (k!=0 && j==N) {
+				neighbors += dataIn[j*N+k-(N-1)*N-1];
+			} else if (k==0 && j==N) {
+				neighbors += dataIn[j*N+k+(N-1)*N+(N-1)];
+			} else neighbors += dataIn[j*N+k+N-1];
 
 			//bottom right neighbor
-			neighbors += (k==N || j==N) ? 0 : dataIn[j*N+k+N+1];
-					
+			if (k==N && j!=N) {
+				neighbors += dataIn[j*N+k+1];
+			} else if (k!=N && j==N) {
+				neighbors += dataIn[j*N+k-(N-1)*N+1];
+			} else if (k==N && j==N) {
+				neighbors += dataIn[j*N+k-(N-1)*N-(N-1)];
+			} else neighbors += dataIn[j*N+k+N+1];
 	
 			//rules for surviving
 			switch(dataIn[j*N+k]) {
