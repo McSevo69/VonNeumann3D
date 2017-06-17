@@ -8,7 +8,7 @@
 #define SHAPE_SIZE 8
 #define SIZE 4096
 #define N 64
-#define IT 1000
+#define IT 250
 #define WINDOW_WIDTH 512
 
 //initialization
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 
 
   /* Before we can render anything, we need a window and a renderer */
-  Main_Window = SDL_CreateWindow("SDL_RenderCopy Example",
+  Main_Window = SDL_CreateWindow("Game Of Life",
   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 512, 0);
   Main_Renderer = SDL_CreateRenderer(Main_Window, -1, SDL_RENDERER_ACCELERATED);
 
