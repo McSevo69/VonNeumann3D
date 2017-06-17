@@ -118,8 +118,6 @@ int main(int argc, char *argv[])
   SrcR.w = SHAPE_SIZE;
   SrcR.h = SHAPE_SIZE;
 
-  DestR.x = SHAPE_SIZE / 2 - SHAPE_SIZE / 2;
-  DestR.y = SHAPE_SIZE / 2 - SHAPE_SIZE / 2;
   DestR.w = SHAPE_SIZE;
   DestR.h = SHAPE_SIZE;
 
