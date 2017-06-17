@@ -172,6 +172,7 @@ int main(int argc, char *argv[])
 			if (dataOut[i][j*N+k]==1) {
       			DestR.x = SHAPE_SIZE*2*(k) / 2;
   	  			DestR.y = SHAPE_SIZE*2*(j) / 2;
+				SDL_UpdateTexture(WhiteCell, NULL, NULL, Loading_Surf->pitch);
 		    	SDL_RenderCopy(Main_Renderer, WhiteCell, &SrcR, &DestR);
 			}
 		}
