@@ -8,7 +8,7 @@
 #define SHAPE_SIZE 1
 #define SIZE 861184
 #define N 928
-#define IT 1000
+#define IT 2000
 #define WINDOW_WIDTH 928
 
 //initialization
