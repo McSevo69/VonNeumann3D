@@ -5,11 +5,11 @@
 #include <unistd.h>
 #include <time.h>
 
-#define SHAPE_SIZE 2
-#define SIZE 65536
-#define N 256
-#define IT 500
-#define WINDOW_WIDTH 512
+#define SHAPE_SIZE 1
+#define SIZE 861184
+#define N 928
+#define IT 1000
+#define WINDOW_WIDTH 928
 
 //initialization
 void init(int *a, int n, int alife) {
@@ -23,12 +23,6 @@ void init(int *a, int n, int alife) {
 		a[randomIndex] = 1;
 	}
 
-	//glider
-	//a[2] = 1;
-	//a[N] = 1;
-	//a[N+2] = 1;
-	//a[2*N+1] = 1;
-	//a[2*N+2] = 1;
 
 }
 
@@ -134,12 +128,13 @@ void golAlgorithm(int *dataIn, int *dataOut, int s1, int s2, int b1, int b2, int
 
 int main(int argc, char *argv[])
 {
-	int radius=5; //radius of the neighborhood
-	int s1 = 32; //survival 1
-	int s2 = 56; //survival 2
-	int b1 = 31; //birth 1
-	int b2 = 43; //birth 2
-	float alive = 0.83; //must be in range [0,1]
+	int radius=16; //radius of the neighborhood
+	int maxNeighbors = (2*radius+1)*(2*radius+1)-1;
+	int s1 = maxNeighbors*0.235; //survival 1
+	int s2 = maxNeighbors*0.446; //survival 2
+	int b1 = maxNeighbors*0.238; //birth 1
+	int b2 = maxNeighbors*0.32; //birth 2
+	float alive = 0.762; //must be in range [0,1]
 
 	int * dataIn = calloc(SIZE, sizeof(int));
 	int ** dataOut = calloc(IT*SIZE, sizeof(int*));
@@ -184,7 +179,7 @@ int main(int argc, char *argv[])
 
   /* Before we can render anything, we need a window and a renderer */
   Main_Window = SDL_CreateWindow("Game Of Life",
-  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 512, 0);
+  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_WIDTH, 0);
   Main_Renderer = SDL_CreateRenderer(Main_Window, -1, SDL_RENDERER_ACCELERATED);
 
   /* The loading of the background texture. Since SDL_LoadBMP() returns
@@ -226,7 +221,7 @@ int main(int argc, char *argv[])
 
       SDL_RenderPresent(Main_Renderer);
       int cnt = 0;
-      while(++cnt < 100) {
+      while(++cnt < 200) {
           SDL_Event event;
           SDL_PollEvent( &event );
           SDL_Delay(1);
