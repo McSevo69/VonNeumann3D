@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
 
       SDL_RenderPresent(Main_Renderer);
       int cnt = 0;
-      while(++cnt < 2) {
+      while(++cnt < 3) {
           SDL_Event event;
           SDL_PollEvent( &event );
           SDL_Delay(1);
