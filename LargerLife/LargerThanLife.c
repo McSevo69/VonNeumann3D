@@ -8,7 +8,7 @@
 #define SHAPE_SIZE 1
 #define SIZE 861184
 #define N 928
-#define IT 2000
+#define IT 1100
 #define WINDOW_WIDTH 928
 
 //initialization
@@ -129,10 +129,10 @@ int main(int argc, char *argv[])
 	int radius=20; //radius of the neighborhood
 	int maxNeighbors = (2*radius+1)*(2*radius+1)-1;
 	int s1 = maxNeighbors*0.28; //survival 1
-	int s2 = maxNeighbors*0.48; //survival 2
+	int s2 = maxNeighbors*0.49; //survival 2
 	int b1 = maxNeighbors*0.28; //birth 1
 	int b2 = maxNeighbors*0.375; //birth 2
-	float alive = 0.662; //must be in range [0,1]
+	float alive = 0.692; //must be in range [0,1]
 
 	int * dataIn = calloc(SIZE, sizeof(int));
 	int ** dataOut = calloc(IT*SIZE, sizeof(int*));
