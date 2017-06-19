@@ -52,21 +52,21 @@ void golAlgorithm(int *dataIn, int *dataOut, int s1, int s2, int b1, int b2, int
 			rightOF = 0;
 	
 			//diagonal squares
-			for (int ir = 1; ir < radius; ir++) {
+			for (int ir = 0; ir < radius; ir++) {
 					
 				//move up
-				cellRowUp = (j-ir < 0) ? (N-(++topUF)) * N : (j-ir) * N;
+				cellRowUp = (j-ir-1 < 0) ? (N-(++topUF)) * N : (j-ir-1) * N;
 	
 				//move down
-				cellRowDown = (j+ir > N) ? (bottomOF++) * N : (j+ir-1) * N;
+				cellRowDown = (j+ir+1 > N) ? (bottomOF++) * N : (j+ir+1) * N;
 	
-				for (int jr=1; jr<radius; jr++) {
+				for (int jr=0; jr<radius; jr++) {
 
 					//move left
-					cellColLeft = ((k-jr) < 0) ? N - (++leftUF) : (k-jr);
+					cellColLeft = ((k-jr-1) < 0) ? N - (++leftUF) : (k-jr-1);
 			
 					//move right
-					cellColRight = ((k+jr) > N) ? (rightOF++) : (k+jr);
+					cellColRight = ((k+jr+1) > N) ? (rightOF++) : (k+jr+1);
 				
 					neighbors += dataIn[cellRowUp+cellColRight];
 					neighbors += dataIn[cellRowUp+cellColLeft];
@@ -83,13 +83,13 @@ void golAlgorithm(int *dataIn, int *dataOut, int s1, int s2, int b1, int b2, int
 			bottomOF = 0;
 
 			//above-below
-			for (int ic = 1; ic < radius; ic++) {
+			for (int ic = 0; ic < radius; ic++) {
 					
 				//move up
-				cellRowUp = (j-ic < 0) ? (N-(++topUF)) * N : (j-ic) * N;
+				cellRowUp = (j-ic-1 < 0) ? (N-(++topUF)) * N : (j-ic-1) * N;
 	
 				//move down
-				cellRowDown = (j+ic > N) ? (bottomOF++) * N : (j+ic-1) * N;
+				cellRowDown = (j+ic+1 > N) ? (bottomOF++) * N : (j+ic+1) * N;
 				
 				neighbors += dataIn[cellRowUp+k];
 				neighbors += dataIn[cellRowDown+k];
@@ -97,20 +97,18 @@ void golAlgorithm(int *dataIn, int *dataOut, int s1, int s2, int b1, int b2, int
 			}
 			
 			//left-right
-			for (int jc=1; jc<radius; jc++) {
+			for (int jc=0; jc<radius; jc++) {
 
 					//move left
-					cellColLeft = ((k-jc) < 0) ? N - (++leftUF) : (k-jc);
+					cellColLeft = ((k-jc-1) < 0) ? N - (++leftUF) : (k-jc-1);
 			
 					//move right
-					cellColRight = ((k+jc) > N) ? (rightOF++) : (k+jc);
+					cellColRight = ((k+jc+1) > N) ? (rightOF++) : (k+jc+1);
 				
 					neighbors += dataIn[j*N+cellColRight];
 					neighbors += dataIn[j*N+cellColLeft];
 
 			}
-
-
 
 			//rules for surviving
 			switch(dataIn[j*N+k]) {
@@ -128,13 +126,13 @@ void golAlgorithm(int *dataIn, int *dataOut, int s1, int s2, int b1, int b2, int
 
 int main(int argc, char *argv[])
 {
-	int radius=16; //radius of the neighborhood
+	int radius=20; //radius of the neighborhood
 	int maxNeighbors = (2*radius+1)*(2*radius+1)-1;
-	int s1 = maxNeighbors*0.235; //survival 1
-	int s2 = maxNeighbors*0.446; //survival 2
-	int b1 = maxNeighbors*0.238; //birth 1
-	int b2 = maxNeighbors*0.32; //birth 2
-	float alive = 0.762; //must be in range [0,1]
+	int s1 = maxNeighbors*0.28; //survival 1
+	int s2 = maxNeighbors*0.48; //survival 2
+	int b1 = maxNeighbors*0.28; //birth 1
+	int b2 = maxNeighbors*0.375; //birth 2
+	float alive = 0.662; //must be in range [0,1]
 
 	int * dataIn = calloc(SIZE, sizeof(int));
 	int ** dataOut = calloc(IT*SIZE, sizeof(int*));
@@ -221,7 +219,7 @@ int main(int argc, char *argv[])
 
       SDL_RenderPresent(Main_Renderer);
       int cnt = 0;
-      while(++cnt < 3) {
+      while(++cnt < 100) {
           SDL_Event event;
           SDL_PollEvent( &event );
           SDL_Delay(1);
