@@ -8,7 +8,7 @@
 #define SHAPE_SIZE 1
 #define SIZE 861184
 #define N 928
-#define IT 50
+#define IT 1000
 #define WINDOW_WIDTH 928
 
 //initialization
@@ -263,7 +263,7 @@ int main(int argc, char *argv[]) {
 
 		SDL_RenderPresent(Main_Renderer);
 		int cnt = 0;
-		while(++cnt < 200) {
+		while(++cnt < 50) {
 			SDL_Event event;
 			SDL_PollEvent( &event );
 			SDL_Delay(1);
