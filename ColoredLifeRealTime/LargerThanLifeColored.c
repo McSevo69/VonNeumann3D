@@ -172,7 +172,10 @@ int main(int argc, char *argv[]) {
 
 	//first iteration
 	//printf("Iteration 1\n");
+	clock_t start1 = clock();
 	golAlgorithm(dataIn,dataOut[0], b1, b2, w, f1, f2, of, oof, radius);
+	clock_t end1 = clock();
+	double timeSpent = (end1-start1)/(double)CLOCKS_PER_SEC;
 
 	//buffering
 	//for (b1 = 1; b1 < buff+1; b1++) golAlgorithm(dataOut[b1-1],dataOut[b1], b1, b2, w, f1, f2, of, radius);
@@ -294,13 +297,14 @@ int main(int argc, char *argv[]) {
 					golAlgorithm(dataOut[i-1],dataOut[i], b1, b2, w, f1, f2, of, oof, radius);
 
 					clock_t end = clock();
-					double timeSpent = (end-start)/(double)CLOCKS_PER_SEC;
-					printf("time: %.2f sec\n",timeSpent);
+					timeSpent += (end-start)/(double)CLOCKS_PER_SEC;
 			//}
 		}
 
 
 	//}
+
+	printf("\nDone.\ntime: %.2f sec\n",timeSpent);
 
 	SDL_DestroyTexture(WeakCell);
 	SDL_DestroyTexture(FitCell);
