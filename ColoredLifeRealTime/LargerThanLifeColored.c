@@ -9,7 +9,7 @@
 #define SHAPE_SIZE 1
 #define SIZE 262144
 #define N 512
-#define IT 1000
+#define IT 2200
 #define WINDOW_WIDTH 512
 
 //initialization
@@ -30,7 +30,7 @@ void init(int *a, int n, int alife) {
 //1 - fit
 //2 - weak
 //3 - overfit
-void golAlgorithm(int *dataIn, int *dataOut, int b1, int b2, int w, int f1, int f2, int of, int radius) {
+void golAlgorithm(int *dataIn, int *dataOut, int b1, int b2, int w, int f1, int f2, int of, int oof, int radius) {
 
 	int neighbors;
 	//int cellIndex;
@@ -130,6 +130,9 @@ void golAlgorithm(int *dataIn, int *dataOut, int b1, int b2, int w, int f1, int 
 					} else if (neighbors > f2 && neighbors <= of) { //overfit
 						dataOut[j*N+k] = 3;
 						break;
+					} else if (neighbors > of && neighbors <= oof) { //overfit
+						dataOut[j*N+k] = 4;
+						break;
 					} else {
 						dataOut[j*N+k] = 0;
 						break;
@@ -149,10 +152,11 @@ int main(int argc, char *argv[]) {
 	int b1 = maxNeighbors*0.28; //birth 1
 	int b2 = maxNeighbors*0.375; //birth 2
 
-	int w = maxNeighbors*0.28;      //weak in range [w,f1[
-	int f1 = maxNeighbors*0.34;		//fit in range [f1,f2]
-	int f2 = maxNeighbors*0.43;
-	int of = maxNeighbors*0.49;    //overfit in range ]f2,of]
+	int w = maxNeighbors*0.27;      //weak in range [w,f1[
+	int f1 = maxNeighbors*0.33;		//fit in range [f1,f2]
+	int f2 = maxNeighbors*0.40;
+	int of = maxNeighbors*0.44;    //overfit in range ]f2,of]
+	int oof = maxNeighbors*0.482;	//overfit in range ]of,oof]
 
 	float alive = 0.692; //must be in range [0,1]
 
@@ -168,7 +172,7 @@ int main(int argc, char *argv[]) {
 
 	//first iteration
 	//printf("Iteration 1\n");
-	golAlgorithm(dataIn,dataOut[0], b1, b2, w, f1, f2, of, radius);
+	golAlgorithm(dataIn,dataOut[0], b1, b2, w, f1, f2, of, oof, radius);
 
 	//buffering
 	//for (b1 = 1; b1 < buff+1; b1++) golAlgorithm(dataOut[b1-1],dataOut[b1], b1, b2, w, f1, f2, of, radius);
@@ -180,6 +184,7 @@ int main(int argc, char *argv[]) {
 	SDL_Texture* WeakCell;
 	SDL_Texture* FitCell;
 	SDL_Texture* OverfitCell;
+	SDL_Texture* OverOverfitCell;
 
 	/* Rectangles for drawing which will specify source (inside the texture)
 	and target (on the screen) for rendering our textures. */
@@ -222,6 +227,11 @@ int main(int argc, char *argv[]) {
 	OverfitCell = SDL_CreateTextureFromSurface(Main_Renderer, Loading_Surf);
 	SDL_FreeSurface(Loading_Surf);
 
+	/* Load an additional texture */
+	Loading_Surf = SDL_LoadBMP("overoverfit.bmp");
+	OverOverfitCell = SDL_CreateTextureFromSurface(Main_Renderer, Loading_Surf);
+	SDL_FreeSurface(Loading_Surf);
+
 	/* now 'plotting'*/
 	int i;
 	int currentCell;
@@ -260,6 +270,11 @@ int main(int argc, char *argv[]) {
 								DestR.y = SHAPE_SIZE*2*(j) / 2;
 								SDL_UpdateTexture(OverfitCell, NULL, NULL, Loading_Surf->pitch);
 								SDL_RenderCopy(Main_Renderer, OverfitCell, &SrcR, &DestR);
+							} else if (currentCell == 4) { //overoverfit
+								DestR.x = SHAPE_SIZE*2*(k) / 2;
+								DestR.y = SHAPE_SIZE*2*(j) / 2;
+								SDL_UpdateTexture(OverfitCell, NULL, NULL, Loading_Surf->pitch);
+								SDL_RenderCopy(Main_Renderer, OverOverfitCell, &SrcR, &DestR);
 							}
 						}
 					}
@@ -275,8 +290,8 @@ int main(int argc, char *argv[]) {
 					}
 
 					clock_t start = clock();
-					//printf("Iteration %d\n" , it_cnt+1);
-					golAlgorithm(dataOut[i-1],dataOut[i], b1, b2, w, f1, f2, of, radius);
+					printf("Iteration %d\n" , i);
+					golAlgorithm(dataOut[i-1],dataOut[i], b1, b2, w, f1, f2, of, oof, radius);
 
 					clock_t end = clock();
 					double timeSpent = (end-start)/(double)CLOCKS_PER_SEC;
@@ -290,6 +305,7 @@ int main(int argc, char *argv[]) {
 	SDL_DestroyTexture(WeakCell);
 	SDL_DestroyTexture(FitCell);
 	SDL_DestroyTexture(OverfitCell);
+	SDL_DestroyTexture(OverOverfitCell);
 	SDL_DestroyTexture(Background_Tx);
 	SDL_DestroyRenderer(Main_Renderer);
 	SDL_DestroyWindow(Main_Window);
